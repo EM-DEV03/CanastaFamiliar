@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canasta Familiar</title>
+
+    <!-- Bootstrap CSS -->
+    <link href=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- CSS Personalizado -->
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="icon" type="image/png" th:href="@{/img/CanastaFamiliar.png}">
+</head>
+
+<body>
+    <div class="container mt-2">
+        <!-- Encabezado -->
+        <div class="logo-wrapper">
+            <a href="/"> <img th:src="@{/img/CanastaFamiliar.png}" alt="Logo Canasta Familiar" class="logo-canasta"></a>
+        </div>
+        <p class="lead text-muted">Administra los productos de tu canasta</p>
+
+
+        <!-- Mensajes de notificación -->
+        <div th:if="${mensaje}" th:class="'alert alert-' + ${tipoMensaje} + ' alert-dismissible fade show'"
+            role="alert">
+            <span th:text="${mensaje}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+
+        <!-- Formulario para agregar productos -->
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Agregar Producto</h5>
+            </div>
+            <div class="card-body">
+                <form th:action="@{/agregar}" th:object="${itemCanasta}" method="post">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label for="nombre" class="form-label">Nombre del Producto</label>
+                            <input type="text" class="form-control" id="nombre" th:field="*{nombre}"
+                                placeholder="Ej: Arroz" required>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="precio" class="form-label">Precio Unitario ($)</label>
+                            <input type="number" class="form-control" id="precio" th:field="*{precio}" step="1" min="1"
+                                placeholder="20000" required>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="cantidad" class="form-label">Cantidad</label>
+                            <input type="number" class="form-control" id="cantidad" th:field="*{cantidad}" min="1"
+                                placeholder="1" required>
+                        </div>
+                    </div>
+
+                    <div class="mt-3">
+                        <button type="submit" class="btn btn-primary">
+                            ➕ Agregar Producto
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Tabla de productos -->
+        <div class="card shadow-sm">
+            <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Productos en la Canasta</h5>
+                <span class="badge bg-light text-dark" th:text="${items.size()} + ' items'"></span>
+            </div>
+            <div class="card-body">
+                <div th:if="${items.isEmpty()}" class="text-center text-muted py-4">
+                    <p class="mb-0">No hay productos en la canasta</p>
+                </div>
+
+                <div th:unless="${items.isEmpty()}">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Producto</th>
+                                    <th>Precio</th>
+                                    <th>Cantidad</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="item, iterStat : ${items}">
+                                    <td th:text="${iterStat.count}"></td>
+                                    <td th:text="${item.nombre}"></td>
+                                    <td th:text="'$' + ${#numbers.formatInteger(item.precio, 1, 'COMMA')}"></td>
+                                    <td th:text="${item.cantidad}"></td>
+                                    <td th:text="'$' + ${#numbers.formatInteger(item.precio, 1, 'COMMA')}"></td>
+                                </tr>
+                            </tbody>
+                            <tfoot class="table-secondary">
+                                <tr>
+                                    <td colspan="4" class="text-end"><strong>Total:</strong></td>
+                                    <td><strong th:text="'$' + ${#numbers.formatInteger(total, 1, 'COMMA')}"></strong>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                    <!-- Botones de acción -->
+                    <div class="d-flex justify-content-between mt-3">
+                        <form th:action="@{/limpiar}" method="post">
+                            <button type="submit" class="btn btn-danger">
+                                Limpiar Canasta
+                            </button>
+                        </form>
+
+                        <form th:action="@{/resumen}" method="post">
+                            <button type="submit" class="btn btn-info text-white">
+                                Ver Resumen
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center mt-5 mb-3 text-muted">
+            <p>Canasta Familiar - Universidad de Remington &copy; 2026</p>
+        </footer>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

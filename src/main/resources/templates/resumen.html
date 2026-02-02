@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumen - Canasta Familiar</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- CSS Personalizado -->
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="icon" type="image/png" th:href="@{/img/CanastaFamiliar.png}">
+
+</head>
+
+<body>
+    <div class="container mt-2">
+        <!-- Encabezado -->
+        <div class="logo-wrapper">
+            <a href="/"> <img th:src="@{/img/CanastaFamiliar.png}" alt="Logo Canasta Familiar" class="logo-canasta"></a>
+        </div>
+        <p class="lead text-muted">Estadísticas y análisis de tu compra</p>
+
+        <!-- Tarjetas de estadísticas -->
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card text-center shadow-sm estadistica-card">
+                    <div class="card-body">
+                        <h5 class="card-title text-muted">Total a Pagar</h5>
+                        <h2 class="text-success" th:text="'$' + ${#numbers.formatInteger(total, 1, 'COMMA')}"></h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card text-center shadow-sm estadistica-card">
+                    <div class="card-body">
+                        <h5 class="card-title text-muted">Promedio de Precios</h5>
+                        <h2 class="text-primary" th:text="'$' + ${#numbers.formatInteger(promedio, 1, 'COMMA')}">
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card text-center shadow-sm estadistica-card">
+                    <div class="card-body">
+                        <h5 class="card-title text-muted">Total de Productos</h5>
+                        <h2 class="text-info" th:text="${items.size()}"></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Productos más costosos -->
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header bg-warning text-dark">
+                <h5 class="mb-0">Top 3 Productos Más Costosos</h5>
+            </div>
+            <div class="card-body">
+                <div th:if="${productosCostosos.isEmpty()}" class="text-center text-muted">
+                    <p>No hay productos para mostrar</p>
+                </div>
+
+                <div th:unless="${productosCostosos.isEmpty()}">
+                    <div class="list-group">
+                        <div th:each="item, iterStat : ${productosCostosos}"
+                            class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <span class="badge bg-primary rounded-pill me-2" th:text="${iterStat.count}"></span>
+                                <strong th:text="${item.nombre}"></strong>
+                                <small class="text-muted" th:text="' (Cantidad: ' + ${item.cantidad} + ')'"></small>
+                            </div>
+                            <span class="badge bg-success rounded-pill"
+                                th:text="'$' + ${#numbers.formatInteger(item.precio, 1, 'COMMA')}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Todos los productos -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">Todos los Productos</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>#</th>
+                                <th>Producto</th>
+                                <th>Precio</th>
+                                <th>Cantidad</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="item, iterStat : ${items}">
+                                <td th:text="${iterStat.count}"></td>
+                                <td th:text="${item.nombre}"></td>
+                                <td th:text="'$' + ${#numbers.formatInteger(item.precio, 1, 'COMMA')}"></td>
+                                <td th:text="${item.cantidad}"></td>
+                                <td th:text="'$' + ${#numbers.formatInteger(item.calcularSubtotal(), 1, 'COMMA')}">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botón de regreso -->
+        <div class="text-center mb-4">
+            <a th:href="@{/}" class="btn btn-lg btn-primary">
+                Volver a la Canasta
+            </a>
+        </div>
+
+        <!-- Botones de acción -->
+        <div class="text-center mb-4">
+            <div class="btn-group" role="group">
+                <!-- Botón PDF -->
+                <form th:action="@{/descargar-pdf}" method="post" style="display: inline;">
+                    <button type="submit" class="btn btn-lg btn-danger">
+                        <i class="bi bi-file-pdf"></i> Descargar PDF
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center mt-5 mb-3 text-muted">
+            <p>Canasta Familiar - Universidad de Remington &copy; 2026</p>
+        </footer>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

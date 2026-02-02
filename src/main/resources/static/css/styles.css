@@ -1,0 +1,178 @@
+/* Estilos canasta familiar */
+body {
+    background: #e9f5db;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    color: #3e3e3e;
+}
+
+/* Contenedor principal */
+.container {
+    max-width: 1000px;
+    background: #ffffff;
+    padding: 80px;
+    margin-top: 40px;
+    border-radius: 25px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Títulos */
+.display-4 {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #6a994e;
+    text-align: center;
+}
+
+.lead {
+    text-align: center;
+    color: #7a7a7a;
+    font-size: 1.1rem;
+}
+
+/* Cajas */
+.card {
+    border: 2px dashed #d4a373;
+    border-radius: 20px;
+    box-shadow: none;
+    background: #fffaf3;
+    margin-bottom: 25px;
+}
+
+.card-header {
+    background: none !important;
+    border-bottom: 2px dashed #d4a373;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #6a994e;
+}
+
+.card-body {
+    padding: 25px;
+}
+
+/* Contenedor del logo */
+.logo-wrapper {
+    background: #f4f4f4;
+    border-radius: 50%;
+    width: 160px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+}
+
+/* Logo */
+.logo-canasta {
+    width: 400px;
+    height: 400px;
+    padding-bottom: 30px;
+}
+
+
+/* Encabezado */
+.encabezado-canasta {
+    padding-bottom: 10px;
+}
+
+/* Formularios */
+.form-label {
+    font-weight: bold;
+    color: #5a5a5a;
+}
+
+.form-control {
+    border-radius: 15px;
+    border: 2px solid #e9edc9;
+    background: #fefefe;
+}
+
+.form-control:focus {
+    border-color: #6a994e;
+    box-shadow: none;
+}
+
+/* Botones */
+.btn {
+    border-radius: 30px;
+    font-weight: bold;
+    border: none;
+    padding: 10px 25px;
+}
+
+.btn-primary {
+    background: #6a994e;
+}
+
+.btn-primary:hover {
+    background: #588157;
+}
+
+.btn-danger {
+    background: #bc4749;
+}
+
+.btn-danger:hover {
+    background: #a63d40;
+}
+
+.btn-info {
+    background: #dda15e;
+    color: #fff;
+}
+
+.btn-info:hover {
+    background: #c98c4a;
+}
+
+/* Tabla */
+.table {
+    background: #ffffff;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.table thead {
+    background: #6a994e;
+    color: white;
+    font-size: 0.95rem;
+}
+
+.table td,
+.table th {
+    vertical-align: middle;
+    border: none;
+}
+
+.table tbody tr {
+    border-bottom: 1px dashed #ccc;
+}
+
+.table tfoot {
+    background: #f1faee;
+    font-size: 1.1rem;
+}
+
+/* Indicadores */
+.badge {
+    background: #fefae0 !important;
+    color: #6a994e !important;
+    border: 1px solid #d4a373;
+    border-radius: 12px;
+}
+
+/* Mensajes */
+.alert {
+    border-radius: 15px;
+    border: 2px solid #e9edc9;
+    background: #fefae0;
+}
+
+/* Pie de página */
+footer {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #ff0000;
+}

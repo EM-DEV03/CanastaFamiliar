@@ -1,6 +1,6 @@
-# README Técnico - Canasta Familiar
+# Canasta Familiar
 
-Documentación técnica del proyecto **Canasta Familiar**, una aplicación web desarrollada con Spring Boot 4.0.2 para el cálculo y análisis del costo de la canasta familiar.
+Documentación del proyecto **Canasta Familiar**, una aplicación web desarrollada con Spring Boot 4.0.2 para el cálculo y análisis del costo de la canasta familiar.
 
 ---
 
